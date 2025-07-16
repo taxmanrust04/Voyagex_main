@@ -1,9 +1,24 @@
+# 📚 Table of Contents
+
+- [Our Mission](#our-mission)
+- [Problem (Question Zero)](#problem-question-zero)
+- [Persona](#persona)
+- [System Architecture](#system-architecture)
+  - [Block Diagram](#block-diagram)
+  - [State Diagram](#state-diagram)
+  - [Activity Diagram](#activity-diagram)
+- [Project Management](#project-management)
+  - [Milestones](#milestones)
+  - [User Stories](#user-stories)
+  - [Use Case](#use-case)
+  - [Scenario](#scenario)
+- [Team Roles and Responsibilities](#team-roles-and-responsibilities)
+
 # 🛫 Fly with VoyageX
 We are VoyageX—a crew of six ambitious minds charting bold paths through innovation, collaboration, and technical excellence. With strengths spanning Information Technology, Automotive Engineering, and Project Management, our team thrives on solving complex problems with creative precision. Fueled by curiosity and guided by teamwork, VoyageX is where diverse expertise meets shared ambition—ready to lift ideas off the ground and take them further than imagined.
 
 
-
-## 🎯 Our Mission
+# 🎯 Our Mission
 
 To design a **seamless, human-centered autonomous shuttle service** that supports users like Olivia by:
 
@@ -16,7 +31,7 @@ Our solution empowers Olivia to maintain her lifestyle, meet daily needs, and re
 
 ---
 
-## 🧠 Problem (Question Zero)
+# 🧠 Problem (Question Zero)
 
 **How can we design an autonomous shuttle service** (What)  
 **that ensures transportation for senior citizens with walking aids** (For whom)  
@@ -28,11 +43,11 @@ The concept of **Question Zero** emphasizes the importance of beginning the desi
 
 ---
 
-## 👵 Persona
+# 👵 Persona
 
 The **Persona Method** helps designers and engineers deeply understand the **challenges, motivations, and preferences** of their users. By crafting fictional, research-driven user profiles, we can ensure that our autonomous shuttle solution is tailored to meet real-world demands.
 
-### 💼 Meet Olivia Wilson
+## 💼 Meet Olivia Wilson
 
 **Olivia Wilson** is a 70-year-old woman living alone in a senior apartment in Kronach. She uses a walker with a seat due to mild arthritis and occasional fatigue. Although she values her independence, her mobility limitations and the lack of accessible public transportation make grocery shopping increasingly difficult.
 
@@ -42,11 +57,29 @@ She no longer drives and feels emotionally burdened when asking family for help.
 
 ---
 
-## 🧩 System Architecture
+# 🧩 System Architecture
 
-### 🧱 Block Diagram
+## 🧱 Block Diagram
 
-### 🔄 State Diagram
+The autonomous shuttle system is designed to provide safe and accessible transportation for all users, especially those with mobility needs. Built on a five-layer architecture—Sensors, Sense, Plan, Act, and Actuator—the system is powered by ROS 2, ensuring modularity, real-time performance, and compatibility with modern urban mobility standards.
+
+The Sensors Layer collects essential data to help the shuttle understand its surroundings and external conditions. A YDLIDAR G4 scans the environment to detect obstacles, while an Intel RealSense camera identifies objects. A QR code scanner verifies passengers before boarding, and a Domain Bridge (HS-IoT) ensures continuous connection to external services like cloud infrastructure and traffic updates.
+
+In the Sense Layer, this data is processed to create a clear understanding of the shuttle’s surroundings. The Localization Module estimates the shuttle’s position and orientation by interpreting sensor data, while Object Detection and Obstacle Detection Modules recognize people, vehicles, and static hazards. A V2X Decoder gathers messages from nearby connected infrastructure or vehicles, helping the shuttle make informed decisions. All sensor data is merged using the Sensor Fusion and Filtering Module, while the Map Server maintains an updated digital map. The Authentication Module handles secure passenger identification using scanned QR inputs.
+
+The Plan Layer determines the shuttle’s behavior based on its understanding of the environment. At its core, the Decision Unit evaluates the situation and decides whether the shuttle should drive, park, board, or be ideal. The Path Planning Module calculates the most appropriate route, considering current location and goal position. This planning process ensures the shuttle navigates safely and efficiently.
+
+In the Act Layer, the Path Execution Controller plays a central role, converting the planned path into real-time control actions. This module ensures the shuttle follows the route accurately, handling turns, speed changes, and route corrections. The Access Controller manages physical accessibility features such as the door and ramp, triggered only after verifying safe conditions and authenticated passenger access. Meanwhile, the V2X Encoder shares the shuttle’s primary details with surrounding infrastructure and other vehicles for coordinated, safe interaction.
+
+The Actuator Layer transforms these decisions into physical motion. A Door Actuator and Ramp Actuator provide safe entry and exit, especially for passengers with mobility challenges. The Domain Bridge also continues to relay relevant data to external systems, allowing monitoring or integration with smart mobility services.
+
+Together, these layers form a robust and intelligent system for autonomous transport. With a focus on safety, accessibility, and real-time response, and backed by the reliability of ROS 2, the shuttle is ready for practical use in smart city environments.
+
+![Block Diagram](assets/block_diagram.jpg)
+
+[Visit Miro Board](https://miro.com/welcomeonboard/V2tWM2k0RU5iY0xkQjZ6RHIveVJJUHJOdzRnSEJ2cFRmOWZIRzc5dCs4WFZDS2NVS3BFeGdQaVVLMUR4MDJBeDYrWXN3WTJ5TjRYWWM3ckkyTnBVVndya1U4UG5xQTJJeGhYY2xaaFI2azVmMW9Kb1dsckFwNHVJcTJTODB5dktyVmtkMG5hNDA3dVlncnBvRVB2ZXBnPT0hdjE=?share_link_id=175416963287)
+
+## 🔄 State Diagram
 This state diagram shows the full cycle of an autonomous shuttle designed specifically for elderly users with walking aids. The shuttle starts in the Idle state, where it waits in a parking area or resting point until a booking is confirmed through a dedicated mobile app. Once a booking is made, the shuttle transitions to the Driving state. In this state, the vehicle navigates from its idle position to the user’s pickup location, using planned paths that consider safety and rural road conditions.
 
 When the shuttle reaches the pickup spot, it moves to the Boarding state. Here, the user scans a QR code for authentication before boarding. The shuttle is designed to support individuals with mobility limitations, using features like automated ramps. Once the user boards, the shuttle resumes the Driving state again—this time heading to the user's intended drop-off location, which is a supermarket. Upon arrival, the shuttle switches to the Deboarding state, where the user exits safely to begin their shopping trip.
@@ -55,7 +88,7 @@ After drop-off, the shuttle searches for an available parking spot near the supe
 
 ![State Diagram](assets/State_diagram.jpg)
 
-### 🏃 Activity Diagram
+## 🏃 Activity Diagram
 
 The autonomous shuttle service begins when an elderly resident uses a dedicated app to request a ride to the supermarket. The app is designed specifically for seniors, with large icons and a simplified interface to make booking easier. Once a booking request is received, the system checks if the booking is confirmed. If not, the shuttle doesn’t proceed but instead waits in the parking area, until a valid request comes in. If the booking is successful, the shuttle plans a path to the user’s based on current traffic and road conditions in the rural area.
 
@@ -66,22 +99,25 @@ After planning the route, the shuttle drives to the user’s location. After rea
 
 ---
 
-## 🗂️ Project Management
+# 🗂️ Project Management
 
-### 🛠️ Tools
+## 🛠️ Tools
 
 At **VoyageX**, we prioritize clear communication, collaborative design, and informed decision-making. For team coordination and updates, we use **Microsoft Teams** as our primary communication tools. To visualize ideas, map system behaviors, and co-create diagrams, we rely on **MIRO**—a flexible platform to design the system.
 
 For background research and technical understanding, we utilized platforms such as **Google Scholar**, **Wikipedia**, and other freely available academic sources to explore related technologies, accessibility considerations, and autonomous mobility systems. These tools helped us stay  informed, and aligned throughout the development of our solution.
 
 
-### 📅 Milestones
+## 📅 Milestones
 
 
-### 📋 User Stories
+## 📋 User Stories
 
+![User Stories](assets/user_stories.jpg)
 
-### 🔎 Use Case
+[Visit Miro Board](https://miro.com/welcomeonboard/bFdCeDJveHExeDFBWDdaVTBZci9jdDd2NVhjS3M5dUVMWEZoZDIveTR4NlVHN01hTUp5TUw4eEZyNS94aG1zVFJoM0NESlgvelJXR0grMWpBNDlyVlFya1U4UG5xQTJJeGhYY2xaaFI2azZzYjJlWFZNcjRzMXBnUGNBZXRDMGphWWluRVAxeXRuUUgwWDl3Mk1qRGVRPT0hdjE=?share_link_id=382741195050)
+
+## 🔎 Use Case
 
 Olivia Wilson, a 70-year-old retiree, lives alone in a senior apartment in Kronach. She values her
 independence but faces challenges due to mild arthritis and fatigue, relying on a walker with a seat
@@ -104,7 +140,7 @@ regular routine without needing assistance—supporting both her mobility and em
 
 ![Olivia Wilson](assets/Olivia_wilson.png)
 
-### 🎬 Scenario
+## 🎬 Scenario
 
 
 The autonomous grocery shuttle operation begins with a ride request initiated by the user, Olivia
@@ -156,17 +192,19 @@ This seamless, autonomous experience empowers Olivia to manage her errands indep
 enhancing her mobility, routine stability, and overall quality of life without needing to depend on
 others.
 
+![Scenario](assets/scenario.png)
+
 ---
 
-## 👥 Team Roles and Responsibilities
+# 👥 Team Roles and Responsibilities
 
 Our team is committed to project success through clear communication, timely delivery, and collaborative problem-solving. Each member has specific roles, from managing meetings and documenting progress to overseeing agile practices and ensuring team activities run smoothly. Together, we achieve collective growth and efficiency.
 
-| **Responsibility**                                                                 | **Member**             |
-|------------------------------------------------------------------------------------|------------------------|
-| Project Management, Feedback jotting, Software Engineering                        | Ravikumar Savaliya     |
-| Documentation (Goals, Protocols, Mails, Weekly Presentations)                     | Sonia S.               |
-| Validation and Submission Planner                                                 | Monika N.                  |
-| Timekeeper, Meeting rules, and ensuring everyone is in the meeting                | Vamsi         |
-| Planning team activities, seeking help and assistance                              | Parth Pahinkar         |
-| Assigning tasks and planning reviews                                               | Fenil Savaliya              |
+| **Responsibility**                                                                 | **Member**             | **Component**|
+|------------------------------------------------------------------------------------|------------------------|--------------|
+| Project Management, Feedback jotting, Software Engineering                        | Ravikumar Savaliya     |[Path Planning](https://git.hs-coburg.de/voyagex/vx_path_planning)|
+| Documentation (Goals, Protocols, Mails, Weekly Presentations)                     | Sonia S.               |[V2X Decoder](https://git.hs-coburg.de/voyagex/vx_v2x_decoder)|
+| Validation and Submission Planner                                                 | Monika N.                  |[Localization](https://git.hs-coburg.de/voyagex/vx_localization)|
+| Timekeeper, Meeting rules, and ensuring everyone is in the meeting                | Vamsi         |[Obstacle Detection](https://git.hs-coburg.de/voyagex/vx_obstacle_detection)|
+| Planning team activities, seeking help and assistance                              | Parth Pahinkar         |[V2X Encoder](https://git.hs-coburg.de/voyagex/vx_v2x_encoder)|
+| Assigning tasks and planning reviews                                               | Fenil Savaliya              |[Path Execution Controller](https://git.hs-coburg.de/voyagex/vx_path_execution_controller)|
