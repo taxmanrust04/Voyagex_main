@@ -109,7 +109,7 @@ After drop-off, the shuttle begins searching for an available parking spot near 
 # 🗂️ Project Management
 
 This section covers key project management aspects that ensure the autonomous shuttle system is developed efficiently, collaboratively, and aligned with real-world needs. The tools used throughout the project supported version control, task tracking, and documentation. User stories outlined specific goals from the perspective of developers and system components, helping break down complex tasks into manageable units. The use case and scenario described how the shuttle operates in a realistic environment, serving elderly users in rural areas through a simplified booking process and autonomous transportation.
-The milestones provided a clear roadmap of deliverables and progress, guiding the team toward successful completion by Module 6. Team roles and responsibilities defined each member's contributions in ongoing collaboration. Lastly, 
+The milestones provided a clear roadmap of deliverables and progress, guiding the team toward successful completion by Module 6. Team roles and responsibilities defined each member's contributions in ongoing collaboration.
 
 ## 🛠️ Tools
 
@@ -153,7 +153,7 @@ for mobility. Grocery shopping has become difficult especially in poor weather a
 stop is far, and she no longer drives. Though her daughter helps occasionally, Olivia dislikes feeling
 dependent and wishes for a simple, stress-free way to shop on her own.
 
-To meet this need, a human-centered Autonomous Grocery Shuttle has been launched in
+To meet this need, a human-centered Autonomous Shuttle has been launched in
 Kronach, designed for seniors with mobility aids. Olivia can easily book a ride through simple,
 icon-based mobile application,. The system remembers her preferences, and the shuttle picks her
 up directly from her doorstep.
@@ -174,7 +174,7 @@ regular routine without needing assistance while supporting both her mobility an
 ## 🎬 Scenario
 
 
-The autonomous grocery shuttle operation begins with a ride request initiated by the user, Olivia
+The autonomous shuttle operation begins with a ride request initiated by the user, Olivia
 Wilson, a 70-year-old retiree living independently in a senior apartment in Kronach. Due to mild
 arthritis and balance issues, she relies on a walker with a seat and avoids long walks or using
 unreliable rural public transportation. To maintain her independence and manage daily tasks like
@@ -250,20 +250,20 @@ Our team is committed to project success through clear communication, timely del
 | [Path Planning](https://git.hs-coburg.de/voyagex/vx_path_planning) | Ravikumar               |
 | [Obstacle Detection](https://git.hs-coburg.de/voyagex/vx_obstacle_detection)     | Vamsi               |
 | [Object Detection](https://git.hs-coburg.de/voyagex/vx_object_detection)         | Team VoyageX      |
-| [Sensor Data Fusion and Filtering Module](https://git.hs-coburg.de/voyagex/vx_v2x_fusion)                  | Ravikumar & Parth               |
+| [Sensor Data Fusion and Filtering Module](https://git.hs-coburg.de/voyagex/vx_sensor_data_fusion_and_filtering_module)                  | Ravikumar & Parth               |
 | [Server](https://git.hs-coburg.de/voyagex/vx_server)                             | Ravikumar & Parth               |
 | [Path Execution Controller](https://git.hs-coburg.de/voyagex/vx_path_execution_controller)   | Fenil         |
 | [Desicion Unit](https://git.hs-coburg.de/voyagex/vx_decision_unit)       | Ravikumar & Parth                |
 | [V2X Encoder](https://git.hs-coburg.de/voyagex/vx_v2x_encoder)                           | Parth                |
 | [V2X Decoder](https://git.hs-coburg.de/voyagex/vx_v2x_decoder)              | Sonia                 |
 | [Authentication](https://git.hs-coburg.de/voyagex/vx_authentication)          | Ravikumar & Parth      |
-| [Access Controller](https://git.hs-coburg.de/voyagex/vx_door_operation)            | Ravikumar & Parth      |
-| [Localization](https://git.hs-coburg.de/voyagex/vx_visualization) | Monika              |
+| [Access Controller](https://git.hs-coburg.de/voyagex/vx_access_control)            | Ravikumar & Parth      |
+| [Localization](https://git.hs-coburg.de/voyagex/vx_localization) | Monika              |
 
 
 ### User Interface Concepts 
 
 | HMI Type                                                                 | Team Members         |
 |--------------------------------------------------------------------------------|------------------------|
-| [Internal HMI](https://git.hs-coburg.de/voyagex/vx_path_planning) | Ravikumar, Fenil, Sonia               |
+| [Internal HMI](https://git.hs-coburg.de/voyagex/vx_Internal_HMI) | Ravikumar, Fenil, Sonia               |
 | [External HMI](https://git.hs-coburg.de/voyagex/vx_external_HMI)     | Vamsi, Monika, Parth              |
