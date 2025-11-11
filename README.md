@@ -9,6 +9,7 @@
 - [Project Management](#project-management)
   - [Milestones](#-milestones)
   - [User Stories](#-user-stories)
+  - [Effort Estimation and Prioritization](#-effort-estimation-and-prioritization)
   - [Use Case](#-use-case)
   - [Scenario](#-scenario)
 - [Team Roles and Responsibilities](#-team-roles-and-responsibilities)
@@ -60,23 +61,25 @@ Figure 2 describes the entire block diagram with inputs and outputs all all comp
 
 The Sensors Layer collects essential data to help the shuttle understand its surroundings and external conditions. A Lidar scans the environment to detect obstacles, while an RealSense camera identifies objects. A QR code scanner verifies passengers before boarding, and a Domain Bridge (HS-IoT) ensures continuous connection to external services like traffic updates and signal phasing.
 
-In the Sense Layer, this data is processed to create a clear understanding of the shuttle’s surroundings. The Localization Module estimates the shuttle’s position and orientation by interpreting sensor data, while Object Detection and Obstacle Detection Modules recognize people, vehicles, and static hazards. A V2X Decoder gathers messages from nearby connected infrastructure or vehicles, helping the shuttle make informed decisions. All sensor data is merged using the Sensor Fusion and Filtering Module.The Map Server maintains an updated digital map. The Authentication Module handles secure passenger identification using scanned QR inputs.
+In the Sense Layer, this data is processed to create a clear understanding of the shuttle’s surroundings. The Localization Module estimates the shuttle’s position and orientation by interpreting sensor data, while Object Detection and Obstacle Detection Modules recognize people, vehicles, and static hazards. A V2X Decoder gathers messages from nearby connected infrastructure or vehicles, helping the shuttle make informed decisions. Perception Fusion Module calculates the position of the objects from the vehicle. The Map Server maintains an updated digital map. The Authentication Module handles secure passenger identification using scanned QR inputs.
 
-The Plan Layer determines the shuttle’s behavior based on its understanding of the environment. At its core, the Decision Unit evaluates the situation and decides whether the shuttle should drive, park, board, or be ideal. The Path Planning Module calculates the most appropriate route, considering current location and goal position. This planning process ensures the shuttle navigates safely and efficiently.
+The Plan Layer determines the shuttle’s behavior based on its understanding of the environment. At its core, the Decision Unit evaluates the conditions and decides whether the shuttle should drive, park, board, or be ideal. The Path Planning Module calculates the most appropriate route, considering current location and goal position. This planning process ensures the shuttle navigates safely and efficiently.
 
-In the Act Layer, the Path Execution Controller plays a central role, converting the planned path into real-time control actions. This module ensures the shuttle follows the route accurately, handling turns, speed changes, and route corrections. The Access Controller manages physical accessibility features such as the door and ramp, triggered only after verifying safe conditions and authenticated passenger access. Meanwhile, the V2X Encoder shares the shuttle’s primary details with surrounding infrastructure and other vehicles for safe interaction.
+In the Act Layer, the Motion Executor plays a central role, converting the planned path into real-time control actions. This module ensures the shuttle follows the route accurately, handling turns, speed changes, and route corrections. The Access Controller manages physical accessibility features such as the door and ramp, triggered only after verifying safe conditions and authenticated passenger access. Meanwhile, the V2X Transmitter shares the shuttle’s primary details and perception view with surrounding infrastructure and other vehicles for safe interaction.
 
 The Actuator Layer transforms these decisions into physical motion. A Door Actuator and Ramp Actuator provide safe entry and exit, especially for passengers with mobility challenges. The Domain Bridge connects shuttle with external systems.
+
+The Server coordinates communication between HMI and the system, processing booking and user interaction data from the application and internal HMI modules. It acts as a central hub for handling service requests, validating user inputs, and relaying necessary information to enable shuttle operations and authentication.
 
 Together, these layers form a robust and intelligent system for autonomous transport. With a focus on safety, and accessibility.
 
 <p align="center">
-  <img src="assets/block_diagram.jpg" alt="Block Diagram" width="70%"/>
+  <img src="assets/SA_V04.jpg" alt="Block Diagram" width="70%"/>
 </p>
 <p align="center"><strong>Figure 2:</strong> Block Diagram </p>
 
 
-[Visit block diagram Miro Board](https://miro.com/app/board/uXjVJfaT4fM=/?moveToWidget=3458764634693919231&cot=14)
+[Visit block diagram Miro Board](https://miro.com/app/board/uXjVJfaT4fM=/?moveToWidget=3458764644719954901&cot=14)
 
 ## 🔄 State Diagram
 The State Diagram showed in Figure 3 shows the full cycle of an autonomous shuttle. The shuttle starts in the Idle state, where it waits in a parking area or resting point until a booking is confirmed through a mobile app. Once a booking is made, the shuttle transitions to the Driving state. In this state, the vehicle navigates from its idle position to the user’s pickup location, using planned paths that consider safety and road conditions.
@@ -119,9 +122,13 @@ For background research and technical understanding, we utilized platforms such 
 
 ## 📋 User Stories
 
-In this project, user stories are structured to reflect the development process and the technical goals of building a modular vehicle system. These stories capture the responsibilities and intentions of developers, system components, and the team as a whole.This approach helps align the project’s technical milestones with its functional goals.
-[Visit User Stories Miro Board](https://miro.com/app/board/uXjVJfaT4fM=/?moveToWidget=3458764635025969912&cot=14)
+In this project, user stories are structured to reflect the development process and the technical goals of building a modular vehicle system. These stories capture the responsibilities and intentions of developers, system components, and the team as a whole. This approach helps align the project’s technical milestones with its functional goals.
+[Visit User Stories Miro Board](https://miro.com/app/board/uXjVJfaT4fM=/?moveToWidget=3458764647498840506&cot=14)
 
+## 🏗️ Effort Estimation and Prioritization
+
+Effort estimation links detailed development tasks to time and complexity assessments, often by assigning story points or comparable values from team members. By averaging individual ratings and combining them with value judgments, the team determines complexity and prioritizes work. This ensures that high-impact tasks are scheduled first and that project progress is transparent across all contributors.
+[Visit our Effort Estimation & Prioritization Sheet](https://docs.google.com/spreadsheets/d/1di1gAz5qqVnctolXtP6w_rUJ2AIbmvh6WOLwQ2dlhRQ/edit?gid=0#gid=0)
 
 ## 📅 Milestones
 
@@ -130,19 +137,9 @@ Certainly! Here's a longer and more formal version of the sentence:
 Figure 5 provides a comprehensive overview of the key milestones that the team has successfully accomplished so far, as well as the planned objectives and deliverables that are expected to be completed by the end of Module 6, ensuring steady progress and alignment with the overall project timeline.
 
 <p align="center">
-  <img src="assets/milestone_M3.png" alt="Milestones" width="70%"/>
+  <img src="assets/milestone_M4.jpg" alt="Milestones" width="70%"/>
 </p>
 <p align="center"><strong>Figure 5:</strong> Project Milestones</p>
-
-
-| Icons | Meaning              | | Colors  | Meaning                   |
-|------|---------------------|-|--------|---------------------------|
-| 🧪   | Testing            |  | Blue   | Technical Development     |
-| 🔗   | Integration        | |  Green  | UI/UX or HMI              |
-| ✅   | Compliance          | | Red    | Safety & Compliance       |
-| 🎯   | User Experience    | | Purple | AI/Data/Simulation        |
-| 🔐   | Security            | | Orange | Business & Launch         |
-| 🛠️   | Development         | 
 
 
 ## 🔎 Use Case
@@ -223,7 +220,7 @@ This seamless, autonomous experience empowers Olivia to manage her errands indep
 others.
 
 <p align="center">
-  <img src="assets/scenario.png" alt="Scenario" width="70%"/>
+  <img src="assets/scenario_M4.jpeg" alt="Scenario" width="70%"/>
 </p>
 <p align="center"><strong>Figure 7:</strong> Scenario </p>
 
@@ -235,12 +232,12 @@ Our team is committed to project success through clear communication, timely del
 
 | **Responsibility**                                                                 | **Member**             | 
 |------------------------------------------------------------------------------------|------------------------|
-| Visual Collaboration                        | Ravikumar Savaliya     |
-| Workflow Coordinator                    | Sonia S.               |
+| Documentation Lead                        | Ravikumar Savaliya     |
+| Visual Collaboration                    | Sonia S.               |
 | QA & Compliance Lead                                                 | Monika N.                  |
 | Tech & Meeting Coordinator                | Vamsi         |
-| Data Integrator                              | Parth Pahinkar         |
-| Documentation Lead                                               | Fenil Savaliya              |
+| Integration Engineer                           | Parth Pahinkar         |
+| Team Coordinator                                               | Fenil Savaliya              |
 
 
 ### Component Responsibilities
@@ -249,16 +246,17 @@ Our team is committed to project success through clear communication, timely del
 |--------------------------------------------------------------------------------|------------------------|
 | [Path Planning](https://git.hs-coburg.de/voyagex/vx_path_planning) | Ravikumar               |
 | [Obstacle Detection](https://git.hs-coburg.de/voyagex/vx_obstacle_detection)     | Vamsi               |
-| [Object Detection](https://git.hs-coburg.de/voyagex/vx_object_detection)         | Team VoyageX      |
-| [Sensor Data Fusion and Filtering Module](https://git.hs-coburg.de/voyagex/vx_sensor_data_fusion_and_filtering_module)                  | Ravikumar & Parth               |
-| [Server](https://git.hs-coburg.de/voyagex/vx_server)                             | Ravikumar & Parth               |
+| [Object Detection](https://git.hs-coburg.de/voyagex/vx_object_detection)         | Vamsi      |
+| [Perception Fusion Module](https://git.hs-coburg.de/voyagex/vx_perception_fusion_module)                  | Vamsi               |
+| [Server](https://git.hs-coburg.de/voyagex/vx_server)                             | Sonia               |
 | [Path Execution Controller](https://git.hs-coburg.de/voyagex/vx_path_execution_controller)   | Fenil         |
-| [Desicion Unit](https://git.hs-coburg.de/voyagex/vx_decision_unit)       | Ravikumar & Parth                |
-| [V2X Encoder](https://git.hs-coburg.de/voyagex/vx_v2x_encoder)                           | Parth                |
-| [V2X Decoder](https://git.hs-coburg.de/voyagex/vx_v2x_decoder)              | Sonia                 |
+| [Desicion Unit](https://git.hs-coburg.de/voyagex/vx_decision_unit)       |Parth                |
+| [V2X Transmitter](https://git.hs-coburg.de/voyagex/v2x_transmitter)                           | Parth                |
+| [V2X Decoder](https://git.hs-coburg.de/voyagex/vx_v2x_decoder)              | Ravikumar                 |
 | [Authentication](https://git.hs-coburg.de/voyagex/vx_authentication)          | Ravikumar & Parth      |
 | [Access Controller](https://git.hs-coburg.de/voyagex/vx_access_control)            | Ravikumar & Parth      |
 | [Localization](https://git.hs-coburg.de/voyagex/vx_localization) | Monika              |
+| [Traffic Signal Decision Module](https://git.hs-coburg.de/voyagex/vx_traffic_signal_decision) | Ravikumar              |
 
 
 ### User Interface Concepts 
