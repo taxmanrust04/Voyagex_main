@@ -137,7 +137,7 @@ Certainly! Here's a longer and more formal version of the sentence:
 Figure 5 provides a comprehensive overview of the key milestones that the team has successfully accomplished so far, as well as the planned objectives and deliverables that are expected to be completed by the end of Module 6, ensuring steady progress and alignment with the overall project timeline.
 
 <p align="center">
-  <img src="assets/milestone_M4.jpg" alt="Milestones" width="70%"/>
+  <img src="assets/Milestone_DM4.jpg" alt="Milestones" width="70%"/>
 </p>
 <p align="center"><strong>Figure 5:</strong> Project Milestones</p>
 
