@@ -265,3 +265,7 @@ Our team is committed to project success through clear communication, timely del
 |--------------------------------------------------------------------------------|------------------------|
 | [Internal HMI](https://git.hs-coburg.de/voyagex/vx_Internal_HMI) | Ravikumar, Fenil, Sonia               |
 | [External HMI](https://git.hs-coburg.de/voyagex/vx_external_HMI)     | Vamsi, Monika, Parth              |
+
+
+
+<small> @bur7746m git push test</small>
