@@ -61,9 +61,9 @@ Figure 2 describes the entire block diagram with inputs and outputs all all comp
 
 The Sensors Layer collects essential data to help the shuttle understand its surroundings and external conditions. A Lidar scans the environment to detect obstacles, while an RealSense camera identifies objects. A QR code scanner verifies passengers before boarding, and a Domain Bridge (HS-IoT) ensures continuous connection to external services like traffic updates and signal phasing.
 
-In the Sense Layer, this data is processed to create a clear understanding of the shuttle’s surroundings. The Localization Module estimates the shuttle’s position and orientation by interpreting sensor data, while Object Detection and Obstacle Detection Modules recognize people, vehicles, and static hazards. A V2X Decoder gathers messages from nearby connected infrastructure or vehicles, helping the shuttle make informed decisions. Perception Fusion Module calculates the position of the objects from the vehicle. The Map Server maintains an updated digital map. The Authentication Module handles secure passenger identification using scanned QR inputs.
+In the Sense Layer, this data is processed to create a clear understanding of the shuttle’s surroundings. The Localization Module estimates the shuttle’s position and orientation by interpreting sensor data, while Object Detection and Obstacle Detection Modules recognize people, vehicles, and static hazards. A V2X Decoder gathers messages from nearby connected infrastructure or vehicles, helping the shuttle make informed decisions. Perception Fusion Module calculates the position of the objects from the vehicle. The Authentication Module handles secure passenger identification using scanned QR inputs.
 
-The Plan Layer determines the shuttle’s behavior based on its understanding of the environment. At its core, the Decision Unit evaluates the conditions and decides whether the shuttle should drive, park, board, or be ideal. The Path Planning Module calculates the most appropriate route, considering current location and goal position. This planning process ensures the shuttle navigates safely and efficiently.
+The Plan Layer determines the shuttle’s behavior based on its understanding of the environment. At its core, the Decision Unit evaluates the conditions and decides whether the shuttle should drive, park, board, or be ideal. The Path Planning Module calculates the most appropriate route, considering current location and direction and goal position. This planning process ensures the shuttle navigates safely and efficiently.
 
 In the Act Layer, the Motion Executor plays a central role, converting the planned path into real-time control actions. This module ensures the shuttle follows the route accurately, handling turns, speed changes, and route corrections. The Access Controller manages physical accessibility features such as the door and ramp, triggered only after verifying safe conditions and authenticated passenger access. Meanwhile, the V2X Transmitter shares the shuttle’s primary details and perception view with surrounding infrastructure and other vehicles for safe interaction.
 
@@ -74,12 +74,12 @@ The Server coordinates communication between HMI and the system, processing book
 Together, these layers form a robust and intelligent system for autonomous transport. With a focus on safety, and accessibility.
 
 <p align="center">
-  <img src="assets/SA_V04.jpg" alt="Block Diagram" width="70%"/>
+  <img src="assets/Block_diagram_M5.jpg" alt="Block Diagram" width="70%"/>
 </p>
 <p align="center"><strong>Figure 2:</strong> Block Diagram </p>
 
 
-[Visit block diagram Miro Board](https://miro.com/app/board/uXjVJfaT4fM=/?moveToWidget=3458764644719954901&cot=14)
+[Visit block diagram Miro Board](https://miro.com/app/board/uXjVJfaT4fM=/?moveToWidget=3458764648877407182&cot=14)
 
 ## 🔄 State Diagram
 The State Diagram showed in Figure 3 shows the full cycle of an autonomous shuttle. The shuttle starts in the Idle state, where it waits in a parking area or resting point until a booking is confirmed through a mobile app. Once a booking is made, the shuttle transitions to the Driving state. In this state, the vehicle navigates from its idle position to the user’s pickup location, using planned paths that consider safety and road conditions.
@@ -123,12 +123,12 @@ For background research and technical understanding, we utilized platforms such 
 ## 📋 User Stories
 
 In this project, user stories are structured to reflect the development process and the technical goals of building a modular vehicle system. These stories capture the responsibilities and intentions of developers, system components, and the team as a whole. This approach helps align the project’s technical milestones with its functional goals.
-[Visit User Stories Miro Board](https://miro.com/app/board/uXjVJfaT4fM=/?moveToWidget=3458764647498840506&cot=14)
+[Visit User Stories Miro Board](https://miro.com/app/board/uXjVJfaT4fM=/?moveToWidget=3458764649205490567&cot=14)
 
 ## 🏗️ Effort Estimation and Prioritization
 
 Effort estimation links detailed development tasks to time and complexity assessments, often by assigning story points or comparable values from team members. By averaging individual ratings and combining them with value judgments, the team determines complexity and prioritizes work. This ensures that high-impact tasks are scheduled first and that project progress is transparent across all contributors.
-[Visit our Effort Estimation & Prioritization Sheet](https://docs.google.com/spreadsheets/d/1di1gAz5qqVnctolXtP6w_rUJ2AIbmvh6WOLwQ2dlhRQ/edit?gid=0#gid=0)
+[Visit our Effort Estimation & Prioritization Sheet](https://docs.google.com/spreadsheets/d/1di1gAz5qqVnctolXtP6w_rUJ2AIbmvh6WOLwQ2dlhRQ/edit?gid=865985763#gid=865985763)
 
 ## 📅 Milestones
 
@@ -137,7 +137,7 @@ Certainly! Here's a longer and more formal version of the sentence:
 Figure 5 provides a comprehensive overview of the key milestones that the team has successfully accomplished so far, as well as the planned objectives and deliverables that are expected to be completed by the end of Module 6, ensuring steady progress and alignment with the overall project timeline.
 
 <p align="center">
-  <img src="assets/Milestone_DM4.jpg" alt="Milestones" width="70%"/>
+  <img src="assets/Milestone_M5.jpg" alt="Milestones" width="70%"/>
 </p>
 <p align="center"><strong>Figure 5:</strong> Project Milestones</p>
 
@@ -171,56 +171,24 @@ regular routine without needing assistance while supporting both her mobility an
 ## 🎬 Scenario
 
 
-The autonomous shuttle operation begins with a ride request initiated by the user, Olivia
-Wilson, a 70-year-old retiree living independently in a senior apartment in Kronach. Due to mild
-arthritis and balance issues, she relies on a walker with a seat and avoids long walks or using
-unreliable rural public transportation. To maintain her independence and manage daily tasks like
-grocery shopping, she uses a senior-friendly autonomous shuttle service designed for residents with
-limited mobility.
 
-Using a simple, icon-based mobile application, Olivia schedules her trip by selecting key details
-such as pickup location (her residence), destination (supermarket), and desired departure time.
-The app is designed with minimal text and large, intuitive icons, making it accessible and stress-free
-for elderly users. Her mobility aid and boarding preferences are already saved in her profile,
-enabling a quick and effortless booking process.
-
-Once the request is submitted, the system verifies availability and assigns a trip to the shuttle. It
-then generates an optimized multi-stop route through its path and trajectory planning module,
-incorporating Olivia’s stop. Figure 7 illustrates the complete scenario, showing each step. 
-The autonomous shuttle departs from its staging area and follows the assigned route. Upon arriving
-at Olivia’s building entrance, it initiates a secure passenger verification process. Olivia confirms
-her identity using a large touchscreen onboard, tapping a confirmation icon that syncs with her prior
-booking.
-
-Once verified, the vehicle automatically deploys an accessibility ramp and opens its doors. Olivia
-boards without assistance, aided by the shuttle’s low-floor design, wide doors, secure handrails, and
-dedicated walker space. Once seated and her walker is locked in place, the system conducts a safety
-check to confirming proper seating, ramp retraction, and door closure.
-
-The shuttle continues toward the supermarket, using its onboard perception system and V2X
-communication modules to monitor traffic, receive real-time updates from surrounding
-infrastructure, and ensure safe navigation. En route, the system detects a construction-related detour
-via a V2X alert. The shuttle's path planning module instantly recalculates a new route, and Olivia is
-informed of the minor adjustment through a clear, friendly voice announcement to ensuring her ride
-remains predictable and comfortable.
-
-At the supermarket, the shuttle stops at the designated accessible entrance, announces the arrival via
-audio cue, opens the doors, and deploys the ramp. Olivia exits smoothly and begins her shopping
-while the shuttle starts finding the spot to park itself. And after finding spot it parks itself safely and securely.
-
-Once ready to return, Olivia opens the app and taps the “Return Home” icon. The system retrieves
-her profile and dispatches to the supermarket to pick her up. The return
-trip mirrors the outbound process: authentication, accessible boarding, safety confirmation, and a
-direct route back to her residence.
-Upon arrival, the shuttle deploys the ramp, and Olivia disembarks with her groceries and walker. A
-completion report is automatically sent to the central management system, confirming the
-successful and secure trip.
-
-This seamless, autonomous experience empowers Olivia to manage her errands independently which enhancing her mobility, routine stability, and overall quality of life without needing to depend on
-others.
-
+The autonomous shuttle operation begins with a ride request initiated by the user, Olivia Wilson, a 70-year-old retiree living independently in a senior apartment in Kronach. Due to mild arthritis and balance issues, she relies on a walker with a seat and avoids long walks or using unreliable rural public transportation. To maintain her independence and manage daily tasks like grocery shopping, she uses a senior-friendly autonomous shuttle service designed for residents with limited mobility.
+ 
+Using a simple, icon-based mobile application, Olivia schedules her trip by selecting key details such as pickup location (her residence), destination (supermarket), and desired departure time. The app is designed with minimal text and large, intuitive icons, making it accessible and stress-free for elderly users.
+ 
+Once the request is submitted, the system assigns a trip to the shuttle and it then generates an optimized route through path planning module. Figure 7 illustrates the complete scenario, showing each step. The autonomous shuttle departs from its parked location and follows the assigned route. Upon arriving at Olivia’s building entrance, it initiates a secure passenger verification process. Olivia confirms her identity by scanning a QR code generated by booking application.
+ 
+Once verified, the vehicle automatically deploys an accessibility ramp and opens its doors. Olivia boards without assistance, aided by the shuttle’s low-floor design, wide doors, secure handrails, and dedicated walker space.
+ 
+The shuttle continues toward the supermarket, using its onboard perception system and V2X communication modules to monitor traffic, receive real-time updates from surrounding infrastructure, and ensure safe navigation. En route, the system detects as construction, obstactle and emergency related detour via a V2X messages or by obstacle detection. The shuttle's path planning module instantly recalculates a new route, and Olivia is informed of the minor adjustment through a clear, friendly voice announcement to ensuring her ride remains predictable and comfortable.
+ 
+At the supermarket, the shuttle stops at the designated accessible entrance, announces the arrival via audio cue, opens the doors, and deploys the ramp. Olivia exits smoothly and begins her shopping while the shuttle starts finding the spot to park itself. And after finding spot it parks itself safely and securely.
+ 
+Once ready to return, Olivia opens the app and taps the “Return Home” icon. The system retrieves her profile and dispatches to the supermarket to pick her up. The return trip mirrors the outbound process: authentication, accessible boarding, safety confirmation, and a direct route back to her residence. Upon arrival, the shuttle deploys the ramp, and Olivia disembarks with her groceries and walker.
+ 
+This seamless, autonomous experience empowers Olivia to manage her errands independently which enhancing her mobility, routine stability, and overall quality of life without needing to depend on others.
 <p align="center">
-  <img src="assets/scenario_M4.jpeg" alt="Scenario" width="70%"/>
+  <img src="assets/scenario_M5.jpg" alt="Scenario" width="70%"/>
 </p>
 <p align="center"><strong>Figure 7:</strong> Scenario </p>
 
@@ -247,9 +215,9 @@ Our team is committed to project success through clear communication, timely del
 | [Path Planning](https://git.hs-coburg.de/voyagex/vx_path_planning) | Ravikumar               |
 | [Obstacle Detection](https://git.hs-coburg.de/voyagex/vx_obstacle_detection)     | Vamsi               |
 | [Object Detection](https://git.hs-coburg.de/voyagex/vx_object_detection)         | Vamsi      |
-| [Perception Fusion Module](https://git.hs-coburg.de/voyagex/vx_perception_fusion_module)                  | Vamsi               |
+| [Perception Fusion Module](https://git.hs-coburg.de/voyagex/vx_perception_fusion_module)                  | Parth               |
 | [Server](https://git.hs-coburg.de/voyagex/vx_server)                             | Sonia               |
-| [Path Execution Controller](https://git.hs-coburg.de/voyagex/vx_path_execution_controller)   | Fenil         |
+| [Motion Executer](https://git.hs-coburg.de/voyagex/vx_motion_executor)   | Fenil         |
 | [Desicion Unit](https://git.hs-coburg.de/voyagex/vx_decision_unit)       |Parth                |
 | [V2X Transmitter](https://git.hs-coburg.de/voyagex/v2x_transmitter)                           | Parth                |
 | [V2X Decoder](https://git.hs-coburg.de/voyagex/vx_v2x_decoder)              | Ravikumar                 |
@@ -257,15 +225,5 @@ Our team is committed to project success through clear communication, timely del
 | [Access Controller](https://git.hs-coburg.de/voyagex/vx_access_control)            | Ravikumar & Parth      |
 | [Localization](https://git.hs-coburg.de/voyagex/vx_localization) | Monika              |
 | [Traffic Signal Decision Module](https://git.hs-coburg.de/voyagex/vx_traffic_signal_decision) | Ravikumar              |
-
-
-### User Interface Concepts 
-
-| HMI Type                                                                 | Team Members         |
-|--------------------------------------------------------------------------------|------------------------|
-| [Internal HMI](https://git.hs-coburg.de/voyagex/vx_Internal_HMI) | Ravikumar, Fenil, Sonia               |
-| [External HMI](https://git.hs-coburg.de/voyagex/vx_external_HMI)     | Vamsi, Monika, Parth              |
-
-
-
-<small> @bur7746m git push test</small>
+| [Internal HMI](https://git.hs-coburg.de/voyagex/vx_Internal_HMI) |  Sonia               |
+| [External HMI](https://git.hs-coburg.de/voyagex/vx_external_HMI)     | Sonia              |
