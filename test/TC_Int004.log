@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-6.2.5, py-1.10.0, pluggy-0.13.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/hs-coburg.de/rav4243s/vvvv/src/voyage_x_main
+plugins: ament-lint-0.12.14, ament-xmllint-0.12.14, ament-flake8-0.12.14, launch-testing-ros-0.19.13, launch-testing-1.0.13, ament-copyright-0.12.14, ament-pep257-0.12.14, anyio-4.11.0, cov-3.0.0, colcon-core-0.20.1
+collecting ... collected 1 item
+
+test_motion_executor_integration.py::test_TC_Int_MotionExecutor 
+Expected Result 1: PASSED
+Expected Result 2: PASSED
+PASSED
+
+============================== 1 passed in 4.12s ===============================

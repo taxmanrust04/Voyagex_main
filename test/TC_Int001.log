@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-6.2.5, py-1.10.0, pluggy-0.13.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/hs-coburg.de/rav4243s/vvvv/src/voyage_x_main
+plugins: ament-lint-0.12.14, ament-xmllint-0.12.14, ament-flake8-0.12.14, launch-testing-ros-0.19.13, launch-testing-1.0.13, ament-copyright-0.12.14, ament-pep257-0.12.14, anyio-4.11.0, cov-3.0.0, colcon-core-0.20.1
+collecting ... collected 2 items
+
+test_path_planner_integration.py::test_path_to_pickup PASSED             [ 50%]
+test_path_planner_integration.py::test_path_to_dropoff PASSED            [100%]
+
+============================== 2 passed in 6.60s ===============================
