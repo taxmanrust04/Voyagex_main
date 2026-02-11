@@ -6,6 +6,7 @@
   - [Block Diagram](#-block-diagram)
   - [State Diagram](#-state-diagram)
   - [Activity Diagram](#-activity-diagram)
+- [Features](#-features)
 - [Project Management](#project-management)
   - [Milestones](#-milestones)
   - [User Stories](#-user-stories)
@@ -56,58 +57,107 @@ The system architecture outlines the autonomous shuttle’s functional structure
 
 ## 🧱 Block Diagram
 
-The autonomous shuttle system is designed to provide safe and accessible transportation for all users, especially those with mobility needs. Built on a five-layer architecture (Sensors, Sense, Plan, Act, and Actuator) the system is powered by ROS 2, ensuring compatibility with modern mobility standards.
-Figure 2 describes the entire block diagram with inputs and outputs all all components of the system.
+The autonomous shuttle system is designed to provide safe and accessible transportation for all users, especially those with mobility needs. Built on a five-layer architecture (Sensors, Sense, Plan, Act, and Actuator) the system is powered by ROS 2, ensuring compatibility with modern mobility standards. Figure 2 describes the entire block diagram with inputs and outputs all all components of the system.
+The Sensors Layer collects essential data to help the shuttle understand its surroundings and external conditions. A Lidar scans the environment to detect obstacles, while an RealSense camera identifies objects. A QR code scanner verifies passengers before boarding, and a Domain Bridge (HS-IoT) ensures continuous connection to external services like traffic updates and signal phasing. Additionally, wheel encoder feedback and Ackermann drive feedback provide vehicle motion information required for state estimation and control. Additionally, wheel encoder feedback and Ackermann drive feedback provide vehicle motion information required for state estimation and control.
 
-The Sensors Layer collects essential data to help the shuttle understand its surroundings and external conditions. A Lidar scans the environment to detect obstacles, while an RealSense camera identifies objects. A QR code scanner verifies passengers before boarding, and a Domain Bridge (HS-IoT) ensures continuous connection to external services like traffic updates and signal phasing.
+In the Sense Layer, this data is processed to create a clear understanding of the shuttle’s surroundings. The Localization Module estimates the shuttle’s position and orientation by interpreting sensor data, while Object Detection and Obstacle Detection Modules recognize people, vehicles, and static hazards. A V2X Decoder gathers messages from nearby connected infrastructure or vehicles, helping the shuttle make informed decisions. Perception Fusion Module calculates the position of the objects from the vehicle. The Authentication Module handles secure passenger identification using scanned QR inputs. A Traffic Signal Decision Module processes traffic signal state information received through V2X communication to support compliant intersection behavior.A Traffic Signal Decision Module processes traffic signal state information received through V2X communication to support compliant intersection behavior.
 
-In the Sense Layer, this data is processed to create a clear understanding of the shuttle’s surroundings. The Localization Module estimates the shuttle’s position and orientation by interpreting sensor data, while Object Detection and Obstacle Detection Modules recognize people, vehicles, and static hazards. A V2X Decoder gathers messages from nearby connected infrastructure or vehicles, helping the shuttle make informed decisions. Perception Fusion Module calculates the position of the objects from the vehicle. The Authentication Module handles secure passenger identification using scanned QR inputs.
+The Plan Layer determines the shuttle’s behavior based on its understanding of the environment. At its core, the Decision Unit evaluates the conditions and decides whether the shuttle should drive, park, board, or be ideal. The Path Planning Module calculates the most appropriate route, considering current location and direction and goal position. This planning process ensures the shuttle navigates safely and efficiently. The Decision Unit also processes booking requests, goal coordinates, stop signals, and authentication status to coordinate mission-level behavior.The Decision Unit also processes booking requests, goal coordinates, stop signals, and authentication status to coordinate mission-level behavior.
 
-The Plan Layer determines the shuttle’s behavior based on its understanding of the environment. At its core, the Decision Unit evaluates the conditions and decides whether the shuttle should drive, park, board, or be ideal. The Path Planning Module calculates the most appropriate route, considering current location and direction and goal position. This planning process ensures the shuttle navigates safely and efficiently.
+In the Act Layer, the Motion Executor plays a central role, converting the planned path into real-time control actions. This module ensures the shuttle follows the route accurately, handling turns, speed changes, and route corrections. The Access Controller manages physical accessibility features such as the door and ramp, triggered only after verifying safe conditions and authenticated passenger access. Meanwhile, the V2X Transmitter shares the shuttle’s primary details and perception view with surrounding infrastructure and other vehicles for safe interaction. The Motion Executor interfaces with ROS2Arduino and ROS2PCAN to transmit steering and motor commands to the hardware layer.
 
-In the Act Layer, the Motion Executor plays a central role, converting the planned path into real-time control actions. This module ensures the shuttle follows the route accurately, handling turns, speed changes, and route corrections. The Access Controller manages physical accessibility features such as the door and ramp, triggered only after verifying safe conditions and authenticated passenger access. Meanwhile, the V2X Transmitter shares the shuttle’s primary details and perception view with surrounding infrastructure and other vehicles for safe interaction.
+The Actuator Layer transforms these decisions into physical motion. A Door Actuator and Ramp Actuator provide safe entry and exit, especially for passengers with mobility challenges. The Domain Bridge connects shuttle with external systems. The steering wheel servo and DC motor execute motion commands generated by the control system to enable vehicle movement.
 
-The Actuator Layer transforms these decisions into physical motion. A Door Actuator and Ramp Actuator provide safe entry and exit, especially for passengers with mobility challenges. The Domain Bridge connects shuttle with external systems.
+The Server coordinates communication between HMI and the system, processing booking and user interaction data from the application and internal HMI modules. It acts as a central hub for handling service requests, validating user inputs, and relaying necessary information to enable shuttle operations and authentication. 
 
-The Server coordinates communication between HMI and the system, processing booking and user interaction data from the application and internal HMI modules. It acts as a central hub for handling service requests, validating user inputs, and relaying necessary information to enable shuttle operations and authentication.
+The Server also manages estimated distance and time calculations and exchanges vehicle state updates between system components and user interfaces.he Server also manages estimated distance and time calculations and exchanges vehicle state updates between system components and user interfaces.
 
 Together, these layers form a robust and intelligent system for autonomous transport. With a focus on safety, and accessibility.
-
 <p align="center">
-  <img src="assets/Block_diagram_M5.jpg" alt="Block Diagram" width="70%"/>
+  <img src="assets/block_diagram_M6.jpg" alt="Block Diagram" width="70%"/>
 </p>
 <p align="center"><strong>Figure 2:</strong> Block Diagram </p>
 
 
-[Visit block diagram Miro Board](https://miro.com/app/board/uXjVJfaT4fM=/?moveToWidget=3458764648877407182&cot=14)
+[Visit block diagram Miro Board](https://miro.com/app/board/uXjVJfaT4fM=/?moveToWidget=3458764654877934343&cot=14)
 
 ## 🔄 State Diagram
-The State Diagram showed in Figure 3 shows the full cycle of an autonomous shuttle. The shuttle starts in the Idle state, where it waits in a parking area or resting point until a booking is confirmed through a mobile app. Once a booking is made, the shuttle transitions to the Driving state. In this state, the vehicle navigates from its idle position to the user’s pickup location, using planned paths that consider safety and road conditions.
+The State Diagram shown in Figure 3 shows the full cycle of the autonomous shuttle. The shuttle starts in the Idle state, where it waits until a booking is received. Once a booking is made, the shuttle transitions to the Driving to Pickup state. In this state, the vehicle navigates from its current position to the user’s pickup location using the planned path while considering safety and road conditions.
 
-When the shuttle reaches the pickup spot, it moves to the Boarding state. Once the user boards, the shuttle resumes the Driving state again, this time heading to the user's intended drop-off location, which is a supermarket. Upon arrival, the shuttle switches to the Deboarding state, where the user exits safely to begin their shopping trip.
+When the shuttle reaches the pickup spot, it moves to the Boarding state. After the passenger boards successfully, the shuttle transitions to the Driving to Dropoff state, heading toward the user’s intended destination. Upon reaching the drop-off location, the shuttle switches to the Deboarding state, where the passenger exits safely.
 
-After drop-off, the shuttle searches for an available parking spot near the supermarket. When it reaches a parking spot, it transitions into a Parking state and parks itself safely. After that it changes its state to Ideal and remains there until the user finishes shopping. Once the user completes its shopping , the same cycle can repeat. This simple, well-defined state model ensures that the shuttle service is efficient, and offer safe, on-demand mobility to help seniors complete their tasks independently and reliably.
+After deboarding, the shuttle moves to the Parking state and navigates to a designated parking spot. Once the parking position is reached, it transitions back to the Idle state and waits for the next booking. If a ride is cancelled while driving to pickup, the shuttle directly transitions to Parking. Similarly, if a new booking is received during Deboarding, the shuttle can transition back to Driving to Pickup.
+This well-defined state model ensures efficient, safe, and structured shuttle operation throughout the entire operational workflow.
 
 <p align="center">
-  <img src="assets/State_diagram.jpg" alt="State Diagram" width="70%"/>
+  <img src="assets/state_dia.jpg" alt="State Diagram" width="70%"/>
 </p>
 <p align="center"><strong>Figure 3:</strong> State Diagram </p>
 
 ## 🏃 Activity Diagram
 
-The autonomous shuttle service begins when an elderly resident uses a dedicated app to request a ride to the supermarket. The app is designed specifically for seniors, with large icons and a simple interface to make booking process easy. Once a booking request is received, the system checks if the booking is confirmed. If not, the shuttle doesn’t proceed and waits in the parking area, until a valid request comes in. If the booking is successful, the shuttle plans a path to the user’s based on current traffic and road conditions in the rural area.
+The autonomous shuttle service begins when an elderly resident uses a dedicated app to request a ride. The app is designed specifically for seniors, with large icons and a simple interface to make the booking process easy. Once a booking request is received, the system checks if the booking is confirmed. If not, the shuttle does not proceed and waits in the parking area until a valid request comes in. If the booking is successful, the shuttle plans a path to the user’s pickup location.
 
-After planning the route, the shuttle drives to the user’s location. After reaching the pickup location, the shuttle authenticates user using a QR code scanner, ensuring the correct person boards the shuttle. After successful authentication, the user boards the shuttle, which is designed to accommodate walking aids with automated door and ramp access. The shuttle then drives to the supermarket, since the goal of this service is to assist elderly citizens in making routine shopping trips independently. Once at the supermarket, the user deboards the shuttle safely and proceeds with their shopping.
+After planning the route, the shuttle drives to the pickup location. During this phase, the system continuously checks whether the ride has been cancelled. If the ride is cancelled, the shuttle stops the pickup process and proceeds to search for a parking spot. If the ride is not cancelled, the shuttle arrives at the pickup point, and the user boards the shuttle.
 
-After drop-off, the shuttle begins searching for an available parking spot near the supermarket. Once a suitable spot is found, it parks itself and remains there until the user finishes shopping and requests the return trip. Figure 4 illustrates this activity flow, outlining each step of the shuttle’s interaction with the user from booking to parking.
+Once the user has boarded, the shuttle drives to the drop-off location. After arriving at the destination, the user deboards the shuttle safely. Following drop-off, the shuttle searches for new booking requests. If a new booking is received, the shuttle directly plans a path to the next pickup location. If no new booking is received, the shuttle searches for an available parking spot, parks itself, and waits in the parking area until a new request is received.
 
+Figure 4 illustrates this activity flow, outlining each step of the shuttle’s operation from booking confirmation to pickup, drop-off, and parking, including handling of ride cancellation and new booking scenarios.
 <p align="center">
-  <img src="assets/Activity_diagram.jpg" alt="Activity Diagram" width="70%"/>
+  <img src="assets/activity_diagram_M6.jpg" alt="Activity Diagram" width="70%"/>
 </p>
 <p align="center"><strong>Figure 4:</strong> Activity Diagram </p>
 
 
----
+# ✨ Features
+
+
+## Traffic Light Compliance
+ 
+The shuttle communicates directly with traffic lights and follows their signals automatically. It stops at red lights and proceeds only when the signal allows it, ensuring safe and predictable behavior at intersections without sudden braking or unsafe crossings.
+ 
+The shuttle receives V2X messages describing both the intersection layout and the current traffic signal state. The MAPEM message provides static geographic information such as intersection geometry, lane structure, and signal group indexing, allowing the vehicle to understand how the intersection is organized. The SPATEM message provides dynamic information about the current signal phase and timing, including the active event state and expected phase changes. Using odometry-based position and heading, the system identifies the relevant signal group for the vehicle and evaluates the SPATEM event state to generate a stop or go command. If signal information is unavailable or unclear, the system defaults to a safe stop behavior.
+ 
+
+ 
+## Display Live ETA and Distance
+ 
+Passengers can see how long the shuttle will take to arrive and how far the destination is at any moment. The pickup time is visible before boarding in the mobile application, and after boarding the remaining travel time and distance are shown on the onboard screen, updating automatically throughout the journey without requiring any interaction.
+ 
+The system continuously calculates remaining distance based on the vehicle’s current position and its progress along the planned path. Estimated arrival time is computed using the remaining path distance and an average driving speed, and an absolute arrival timestamp is generated using system time. ETA is derived from this absolute arrival time and updated at controlled intervals to prevent frequent fluctuations.
+
+
+ 
+## Comfort-Optimized Motion Control
+ 
+The shuttle drives in a smooth and predictable manner by avoiding sudden acceleration, harsh braking, or abrupt steering changes. This ensures a comfortable and stable ride experience, especially for elderly passengers, by making the journey feel safe.
+ 
+The shuttle follows the planned path using a predefined constant driving velocity while continuously adjusting steering based on localization and path planning information. Steering commands are applied smoothly during curve transitions and alignment corrections to prevent abrupt lateral motion. During stopping events, such as traffic lights or detected obstacles, the shuttle reduces speed in a controlled and stable manner to avoid sudden stops. This results in reduced motion disturbances, stable trajectory following, and consistent driving behavior throughout operation.
+ 
+
+ 
+## Obstacle-Aware Collision Prevention
+ 
+Passengers experience safe driving as the shuttle automatically detects obstacles and prevents collisions without requiring any action from the user. When an obstacle appears in the shuttle’s path, the vehicle stops in a controlled manner. Once the obstacle is removed or moves out of the collision path, the shuttle resumes driving automatically. This behavior is continuous and transparent to passengers, ensuring a safe ride throughout the journey.
+ 
+The obstacle-aware collision prevention system continuously processes sensor data (LiDAR) to monitor the environment in front of the vehicle. A dynamic region of interest (ROI) is defined based on the shuttle’s direction of travel, distance threshold, and field of view. Detected objects within this ROI are evaluated for collision based on their distance and relative position. If an object is detected within the defined safety distance, a stop command is issued immediately to prevent a collision. The vehicle remains stopped as long as the obstacle is within the collision zone. Once the obstacle moves outside the defined path or safety threshold, the system allows the shuttle to resume motion.
+ 
+
+ 
+## Reliable Navigation
+ 
+Passengers experience smooth and continuous shuttle movement even if one positioning sensor temporarily stops working. The shuttle does not stop unexpectedly, jump, or behave abnormally and continues operating safely during the journey.
+ 
+The system maintains vehicle position information when OptiTrack data is temporarily unavailable by detecting missing position updates and switching to a fallback localization method. If the vehicle is stationary, the last known position is retained; if the vehicle is moving, position updates are estimated based on wheel speed. When OptiTrack data becomes available again, the system automatically switches back to normal localization without causing sudden position jumps.
+ 
+
+ 
+## Accessible Shuttle Booking and Authentication
+ 
+The shuttle can be booked easily through a simple and easy-to-understand application designed for minimal interaction. The user selects a ride using clear icons, waits for the shuttle to arrive at the pickup location, and authenticates using a QR code or numerical code before entering. The booking can also be cancelled directly from the application before the shuttle reaches the pickup point, giving the user full control over the trip.
+ 
+The shuttle receives booking requests from the application through the backend server, where the request is registered and marked as active. The system transitions the shuttle from idle state to pickup navigation and generates a path to the user’s location. Upon arrival, the shuttle waits for successful user authentication through QR or PIN verification before starting the trip toward the destination. Cancellation requests received before pickup update the booking status on the server, causing the shuttle to stop the current mission safely and either activate the next queued booking or return to the idle state.
+
 
 # 🗂️ Project Management
 
@@ -132,12 +182,11 @@ Effort estimation links detailed development tasks to time and complexity assess
 
 ## 📅 Milestones
 
-Certainly! Here's a longer and more formal version of the sentence:
 
-Figure 5 provides a comprehensive overview of the key milestones that the team has successfully accomplished so far, as well as the planned objectives and deliverables that are expected to be completed by the end of Module 6, ensuring steady progress and alignment with the overall project timeline.
+This image provides a comprehensive overview of the key milestones successfully accomplished throughout the project, highlighting the completed objectives and deliverables achieved up to the end of Module 6, and demonstrating alignment with the overall project timeline.
 
 <p align="center">
-  <img src="assets/Milestone_M5.jpg" alt="Milestones" width="70%"/>
+  <img src="assets/Milestones_M6.jpg" alt="Milestones" width="70%"/>
 </p>
 <p align="center"><strong>Figure 5:</strong> Project Milestones</p>
 
