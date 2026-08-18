@@ -16,7 +16,19 @@
 - [Team Roles and Responsibilities](#-team-roles-and-responsibilities)
 
 # 🛫 Fly with VoyageX
-We are VoyageX, a group of six driven individuals who are using technical prowess, teamwork, and creativity to explore bold paths. Our team, which has strengths in project management, automotive engineering, and information technology, thrives on finding innovative solutions to challenging issues. Curiosity and teamwork drive VoyageX, a place where a range of expertise and common goals come together to launch ideas and propel them beyond their wildest expectations.
+VoyageX is a university team project exploring an accessible autonomous shuttle for elderly passengers in rural areas. The project combines system architecture, project management, automotive engineering, and information technology to develop and document a modular mobility concept.
+
+## 👤 My Contribution
+
+I contributed to VoyageX as the **Integration Engineer**, with responsibility for connecting system components and supporting the overall technical integration. My documented component work included:
+
+- **Perception Fusion Module**
+- **Decision Unit**
+- **V2X Transmitter**
+- **Authentication** — collaborative contribution
+- **Access Controller** — collaborative contribution
+
+This repository presents the overall team project as portfolio context. The original Git history is retained to preserve contributor attribution.
 
 
 ---
@@ -245,34 +257,6 @@ This seamless, autonomous experience empowers Olivia to manage her errands indep
 
 # 👥 Team Roles and Responsibilities
 
-Our team is committed to project success through clear communication, timely delivery, and collaborative problem-solving. Each member has specific roles, from managing meetings and documenting progress to overseeing agile practices and ensuring team activities run smoothly. Together, we achieve collective growth and efficiency.
+VoyageX was developed collaboratively by a six-person university team. Responsibilities included documentation, visual collaboration, quality and compliance, technical coordination, integration engineering, and team coordination.
 
-| **Responsibility**                                                                 | **Member**             | 
-|------------------------------------------------------------------------------------|------------------------|
-| Documentation Lead                        | Ravikumar Savaliya     |
-| Visual Collaboration                    | Sonia S.               |
-| QA & Compliance Lead                                                 | Monika N.                  |
-| Tech & Meeting Coordinator                | Vamsi         |
-| Integration Engineer                           | Parth Pahinkar         |
-| Team Coordinator                                               | Fenil Savaliya              |
-
-
-### Component Responsibilities
-
-| Component Name                                                                 | Responsibility         |
-|--------------------------------------------------------------------------------|------------------------|
-| [Path Planning](https://git.hs-coburg.de/voyagex/vx_path_planning) | Ravikumar               |
-| [Obstacle Detection](https://git.hs-coburg.de/voyagex/vx_obstacle_detection)     | Vamsi               |
-| [Object Detection](https://git.hs-coburg.de/voyagex/vx_object_detection)         | Vamsi      |
-| [Perception Fusion Module](https://git.hs-coburg.de/voyagex/vx_perception_fusion_module)                  | Parth               |
-| [Server](https://git.hs-coburg.de/voyagex/vx_server)                             | Sonia               |
-| [Motion Executer](https://git.hs-coburg.de/voyagex/vx_motion_executor)   | Fenil         |
-| [Desicion Unit](https://git.hs-coburg.de/voyagex/vx_decision_unit)       |Parth                |
-| [V2X Transmitter](https://git.hs-coburg.de/voyagex/v2x_transmitter)                           | Parth                |
-| [V2X Decoder](https://git.hs-coburg.de/voyagex/vx_v2x_decoder)              | Ravikumar                 |
-| [Authentication](https://git.hs-coburg.de/voyagex/vx_authentication)          | Ravikumar & Parth      |
-| [Access Controller](https://git.hs-coburg.de/voyagex/vx_access_control)            | Ravikumar & Parth      |
-| [Localization](https://git.hs-coburg.de/voyagex/vx_localization) | Monika              |
-| [Traffic Signal Decision Module](https://git.hs-coburg.de/voyagex/vx_traffic_signal_decision) | Ravikumar              |
-| [Internal HMI](https://git.hs-coburg.de/voyagex/vx_Internal_HMI) |  Sonia               |
-| [External HMI](https://git.hs-coburg.de/voyagex/vx_external_HMI)     | Sonia              |
+The wider system also included path planning, obstacle and object detection, perception fusion, server services, motion execution, decision logic, V2X communication, authentication, access control, localization, traffic-signal handling, and internal and external HMI components. These components were distributed among team contributors; the **My Contribution** section above identifies my individual and collaborative responsibilities.
